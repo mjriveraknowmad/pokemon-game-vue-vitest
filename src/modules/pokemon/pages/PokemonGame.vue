@@ -4,7 +4,11 @@ import PokemonOptions from '@/modules/pokemon/components/PokemonOptions.vue';
 import { usePokemonGame } from '@/modules/pokemon/composables/usePokemonGame';
 import { GameStatus } from '../interfaces';
 
-const { gameStatus, isLoading, randomPokemon } = usePokemonGame();
+const { gameStatus, isLoading, randomPokemon, pokemonOptions } = usePokemonGame();
+
+const selectOption = (id: number) => {
+  console.log('Selected option ID:', id);
+};
 
 </script>
 
@@ -22,6 +26,6 @@ const { gameStatus, isLoading, randomPokemon } = usePokemonGame();
 
     <PokemonPicture :pokemon-id="randomPokemon.id" :show-pokemon="gameStatus !== GameStatus.Playing" />
 
-    <PokemonOptions />
+    <PokemonOptions :options="pokemonOptions" @selected-option="selectOption" />
   </section>
 </template>

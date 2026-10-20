@@ -22,6 +22,7 @@ const { gameStatus, isLoading, randomPokemon, pokemonOptions, checkAnswer } = us
 
     <PokemonPicture :pokemon-id="randomPokemon.id" :show-pokemon="gameStatus !== GameStatus.Playing" />
 
-    <PokemonOptions :options="pokemonOptions" @selected-option="checkAnswer" />
+    <PokemonOptions :options="pokemonOptions" :block-selection="gameStatus !== GameStatus.Playing"
+      :correct-answer="randomPokemon?.id || 0" @selected-option="checkAnswer" />
   </section>
 </template>

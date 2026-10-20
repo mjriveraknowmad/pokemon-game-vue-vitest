@@ -7,11 +7,12 @@ const options = [
   { id: 3, name: 'Venusaur' },
 ];
 
-const props = { options, blockSelection: false, correctAnswer: 1 };
+const propsWithBlockSelectionFalse = { options, blockSelection: false, correctAnswer: 1 };
+const propsWithBlockSelectionTrue = { options, blockSelection: true, correctAnswer: 1 };
 
 describe('<PokemonOptions />', () => {
   test('should render buttons with correct text', () => {
-    const wrapper = mount(PokemonOptions, { props });
+    const wrapper = mount(PokemonOptions, { props: propsWithBlockSelectionFalse });
 
     const buttons = wrapper.findAll('button');
     expect(buttons.length).toBe(options.length);
@@ -25,7 +26,7 @@ describe('<PokemonOptions />', () => {
   });
 
   test('should emit selectedOption event when a button is clicked', async () => {
-    const wrapper = mount(PokemonOptions, { props });
+    const wrapper = mount(PokemonOptions, { props: propsWithBlockSelectionFalse });
 
     const [b1, b2, b3] = wrapper.findAll('button');
 
@@ -37,5 +38,67 @@ describe('<PokemonOptions />', () => {
     expect(wrapper.emitted().selectedOption?.[0]).toEqual([1]);
     expect(wrapper.emitted().selectedOption?.[1]).toEqual([2]);
     expect(wrapper.emitted().selectedOption?.[2]).toEqual([3]);
+  });
+
+  test('should disabled buttons when blockSelection prop is true', () => {
+    const wrapper = mount(PokemonOptions, {
+      props: propsWithBlockSelectionTrue,
+    });
+
+    const buttons = wrapper.findAll('button');
+
+    buttons.forEach((button) => {
+      // expect(button.attributes('disabled')).toBeTruthy();
+      const attributes = Object.keys(button.attributes());
+      expect(attributes).toContain('disabled');
+    });
+  });
+
+  test('should apply correct styling to buttons based on correct/incorrect answer', () => {
+    const correctAnswer = 2;
+    const wrapper = mount(PokemonOptions, {
+      props: { ...propsWithBlockSelectionTrue, correctAnswer },
+    });
+
+    const buttons = wrapper.findAll('button');
+
+    buttons.forEach((button, index) => {
+      if (options?.[index]?.id === correctAnswer) {
+        expect(button.classes()).toContain('correct');
+      } else {
+        expect(button.classes()).toContain('incorrect');
+      }
+    });
+  });
+
+  test('should disabled buttons when blockSelection prop is true', () => {
+    const wrapper = mount(PokemonOptions, {
+      props: { ...propsWithBlockSelectionTrue, correctAnswer: 1 },
+    });
+
+    const buttons = wrapper.findAll('button');
+
+    buttons.forEach((button) => {
+      // expect(button.attributes('disabled')).toBeTruthy();
+      const attributes = Object.keys(button.attributes());
+      expect(attributes).toContain('disabled');
+    });
+  });
+
+  test('should apply correct styling to buttons based on correct/incorrect answer', () => {
+    const correctAnswer = 2;
+    const wrapper = mount(PokemonOptions, {
+      props: { ...propsWithBlockSelectionTrue, correctAnswer },
+    });
+
+    const buttons = wrapper.findAll('button');
+
+    buttons.forEach((button, index) => {
+      if (options?.[index]?.id === correctAnswer) {
+        expect(button.classes()).toContain('correct');
+      } else {
+        expect(button.classes()).toContain('incorrect');
+      }
+    });
   });
 });

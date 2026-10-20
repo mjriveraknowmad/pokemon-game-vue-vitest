@@ -2,7 +2,7 @@
   <section class="mt-5 flex flex-col">
     <button v-for="{ id, name } in props.options" :key="id" @click="emit('selectedOption', id)"
       :disabled="props.blockSelection" :class="[
-        'capitalize disabled:shado w-none disabled:bg-gray-100',
+        'capitalize disabled:shadow-none disabled:bg-gray-100',
         {
           correct: id === props.correctAnswer && props.blockSelection,
           incorrect: id !== props.correctAnswer && props.blockSelection,

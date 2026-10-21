@@ -21,7 +21,7 @@ const { gameStatus, isLoading, randomPokemon, pokemonOptions, checkAnswer, getNe
     <h1 class="m-5">¿Quién es este Pokemon?</h1>
 
     <div class="h-20">
-      <button v-if="gameStatus !== GameStatus.Playing" @click="getNextRound(4)"
+      <button v-if="gameStatus !== GameStatus.Playing" @click="getNextRound(4)" data-test-id="btn-new-game"
         class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 transition-all">
         ¿Jugar de nuevo?
       </button>

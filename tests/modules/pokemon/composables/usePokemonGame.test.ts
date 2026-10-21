@@ -16,6 +16,8 @@ mockPokemonApi.onGet('/?limit=151').reply(200, {
   results: pokemonListFake,
 });
 
+// Sino mostraría un error de: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+// con los expect(confetti) de los últimos tests después
 vi.mock('canvas-confetti', () => ({
   // oxlint-disable-next-line vitest/require-mock-type-parameters
   default: vi.fn(),

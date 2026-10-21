@@ -29,7 +29,15 @@ describe('<PokemonPicture />', () => {
     console.log(wrapper.html());
     const img = wrapper.find('img');
     expect(img.exists()).toBe(true);
-    expect(img.classes()).toContain('fade-in');
-    expect(img.attributes('src')).toBe(url);
+    // expect(img.classes()).toContain('fade-in');
+    // expect(img.attributes('src')).toBe(url);
+
+    const attributes = img.attributes();
+    expect(attributes).toEqual(
+      expect.objectContaining({
+        class: 'fade-in h-[200px]',
+        src: url,
+      }),
+    );
   });
 });
